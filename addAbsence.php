@@ -29,11 +29,6 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item">
-          Add an absence
-        </a>
-      </div>
 
       <div class="navbar-end">
         <div class="navbar-item">
