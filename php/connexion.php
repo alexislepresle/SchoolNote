@@ -1,38 +1,41 @@
 <?php
 
 require_once("StudentManager.php");
-require_once("TeacherManager.php");
-require_once("HoSManager.php");
 
-
-    
 if (!empty($_POST)){
     
     if (!isset($_SESSION['id'])){
-        
-        if ($_POST['password'] && $_POST['username']){
+
+        if (isset($_POST['password']) && isset($_POST['email'])){
             
-            $listeStudent = StudentManager::selectAll();
-            $listeTeacher = TeacherManager::selectAll();
-            $Hos = HoSManager::SelectCurrent();
+            $student = StudentManager::exist($_POST['email']);
+            echo $student->toString();
             
-            $liste = $listeStudent + $misteTeacher + $Hos;
-            
-            foreach($liste as $value){
-                if ($value['Email'] == $_POST['username']){
+            if (isset($student)){
+                
+                if ($student->getPwd() == $_POST['password']){
                     
-                    if ($value['Password'] == $_POST['password']){
-                        
-                        session_start();
-                        $_SESSION['id'] = $value['num'];
-                        header("Location: interface.php")
-                        exit();
-                    }else{
-                        echo "Mauvais mot de passe !";
-                    }
-                    echo "Utilisateur inconnu !";
+                    session_start();
+                    echo "Sa marche !";
+                    $_SESSION['id'] = $value['num'];
+                    header('Location: ../interface.php');
+                    exit();
+                    
+                }else{
+                    echo "1 : Mauvais mot de passe !";
                 }
+            }else{
+                echo "2: Utilisateur inconnu !";
             }
+            
+        }else{
+            echo "3: probleme de valeur de Post ";
         }
+    }else{
+        echo "4: déjà connecté !";
     }
+}else{
+    echo "5: pas de requête POST !";
 }
+
+?>

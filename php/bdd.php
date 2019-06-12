@@ -11,18 +11,24 @@ class Bdd extends PDO {
     $dbname = 'agile2_bd';
     $user = 'agile2';
     $password = 'iesh1Dah6Iet8rai';
-    parent::__construct('mysql:host='.$host.';dbname='.$dbname.';charset=utf8', $user, $password);
+    try{
+      parent::__construct('mysql:host='.$host.';dbname='.$dbname.';port=3306;charset=utf8', $user, $password);
+    }catch (PDOException $e){
+      die('Error : ' . $e);
+    }
   }
-
+  
   /**
-  *
-  * @return Bdd L'instance de la base de données
-  */
+   *
+   * @return Bdd L'instance de la base de données
+   */
   public static function getInstance(){
     if(is_null(self::$instance)) {
       self::$instance = new BDD();
     }
     return self::$instance;
+
   }
 }
+
 ?>

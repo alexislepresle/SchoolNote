@@ -12,10 +12,10 @@
 	  <section class="section form_sign-in has-text-centered">
 	    <div class="container is-fullhd"style="">
 	      <h1 class="title"> SchoolNote </h1>
-
+			<form action="./php/connexion.php" method="post"> 
 			<div class="field">
 			  <p class="control has-icons-left has-icons-right">
-			    <input class="input" type="email" placeholder="Email">
+			    <input class="input" type="email" placeholder="Email" name="email">
 			    <span class="icon is-small is-left">
 			      <i class="fas fa-envelope"></i>
 			    </span>
@@ -27,7 +27,7 @@
 
 			<div class="field">
 			  <p class="control has-icons-left">
-			    <input class="input" type="password" placeholder="Password">
+			    <input class="input" type="password" placeholder="Password" name="password">
 			    <span class="icon is-small is-left">
 			      <i class="fas fa-lock"></i>
 			    </span>
@@ -36,12 +36,12 @@
 
 			<div class="field">
 			  <p class="control">
-			    <button class="button is-dark is-fullwidth">
-			      Login
-			    </button>
+			    <input value="Login" type="submit" class="button is-dark is-fullwidth">
+
 			  </p>
 			</div>
-
+			</form> 
+		</div>
 	  </section>
   </body>
 </html>

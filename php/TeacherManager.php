@@ -16,7 +16,7 @@ class TeacherManager{
         if (!empty($query)){
             $result = array();
             foreach ($query as $value) {
-                $result[] = new Teacher($value[''],$value[''],$value[''],$value[''],$value[''],$value[''])
+                $result[] = new Teacher();
             }
             return $result;
         }else{

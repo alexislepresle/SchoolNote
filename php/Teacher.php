@@ -1,14 +1,8 @@
 <?php
 
-class Student{
+class Teacher{
 
-    function __construct($, $, $, $, $, $){
-        $this-> = $;
-        $this-> = $;
-        $this-> = $;
-        $this-> = $;
-        $this-> = $;
-        $this-> = $;
+    function __construct(){
     }
 
 }

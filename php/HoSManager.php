@@ -2,7 +2,7 @@
 require_once("bdd.php");
 require_once("Student.php");
 
-class StudentManager{
+class HoSManager{
 
     private static $GET_CURRENT_HoS = 'SELECT * FROM HoS WHERE annee is to_char(sysdate, \'YY\')';
 
