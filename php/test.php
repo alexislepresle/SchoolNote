@@ -1,14 +1,15 @@
 <?php
-require_once("StudentManager.php");
 
-$liste = StudentManager::selectAll();
+    require_once("StudentManager.php");
 
-if (empty($liste)){
-    echo "Null";
-}else{
-    print_r($liste);
-}
+    $liste = StudentManager::selectAll();
 
+    if (empty($liste)){
+        echo "Null";
+    }else{
+        print_r($liste);
+    }
+
+    echo "<p> sa marche ? </p>";
 ?>
 
-La

@@ -7,7 +7,7 @@ class Bdd extends PDO {
   private static $instance = null;
 
   public function __construct(){
-    $host = 'agile2.users.info.unicaen.fr';
+    $host = 'localhost';
     $dbname = 'agile2_bd';
     $user = 'agile2';
     $password = 'iesh1Dah6Iet8rai';
@@ -24,6 +24,5 @@ class Bdd extends PDO {
     }
     return self::$instance;
   }
-
 }
 ?>
