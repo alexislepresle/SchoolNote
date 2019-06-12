@@ -11,3 +11,11 @@
 .form_sign-in{
 	width: 500px;
 }
+
+.journal{
+	width: 100%;
+	margin-left: 0%;
+	display: flex;
+	flex-direction: column;
+	text-align: -moz-center;
+}
