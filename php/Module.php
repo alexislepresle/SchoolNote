@@ -2,11 +2,12 @@
 
 class Module{
 
-    function __construct($codeModule, $codeUE){
-        $this->codeModule = $codeModule;
-        $this->codeUE = $codeUE;
+    function __construct($NumUE, $CodeMod, $DescMod){
+        $this->NumUE = $NumUE;
+		$this->CodeMod = $CodeMod;
+		$this->DescMod = $DescMod;
     }
-	
+
 }
 
 ?>
