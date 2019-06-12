@@ -5,7 +5,6 @@
     <title>SchoolNote</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-	<link href="~bulma-badge/dist/css/bulma-badge.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/index.css">
   </head>
 	<body>
@@ -32,7 +31,7 @@
 				<div class="navbar-end">
 				  <div class="navbar-item">
 					<div class="buttons">
-					  <a class="button is-dark has-badge-rounded" data-badge="8">
+					  <a class="button is-dark">
 						<i class="fas fa-bell"></i>
 					  </a>
 					  <a class="button is-light">
