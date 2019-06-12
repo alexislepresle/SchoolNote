@@ -3,6 +3,12 @@ require_once("StudentManager.php");
 
 $liste = StudentManager::selectAll();
 
-print_r($liste);
+if (empty($liste)){
+    echo "Null";
+}else{
+    print_r($liste);
+}
 
 ?>
+
+La

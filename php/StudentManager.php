@@ -13,6 +13,8 @@ class StudentManager{
         $query->execute();
         $query = $query->fetchAll;
 
+        print_r($query);
+
         if (!empty($query)){
             $result = array();
             foreach ($query as $value) {
