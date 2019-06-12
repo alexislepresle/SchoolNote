@@ -60,7 +60,7 @@
         <div class="control">
           <div class="select">
             <select>
-              <option>Select dropdown</option>
+              <option>Type</option>
               <option>EM</option>
               <option>TD</option>
               <option>CC</option>
