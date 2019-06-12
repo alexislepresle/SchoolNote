@@ -14,7 +14,6 @@
 
 .journal{
 	width: 100%;
-	margin-left: 0%;
 	display: flex;
 	flex-direction: column;
 	text-align: -moz-center;
