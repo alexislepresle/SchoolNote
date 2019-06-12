@@ -37,7 +37,7 @@ class StudentManager{
         if (!empty($query)){
             return StudentManager::getStudent($query);
         }else{
-            return "None";
+            return NULL;
         }
     }
 

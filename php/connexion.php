@@ -9,9 +9,8 @@ if (!empty($_POST)){
         if (isset($_POST['password']) && isset($_POST['email'])){
             
             $student = StudentManager::exist($_POST['email']);
-            echo $student->toString();
             
-            if (isset($student)){
+            if (!empty($student)){
                 
                 if ($student->getPwd() == $_POST['password']){
                     
@@ -22,20 +21,21 @@ if (!empty($_POST)){
                     exit();
                     
                 }else{
-                    echo "1 : Mauvais mot de passe !";
+                    echo "<script> window.alert(\"Mauvais Mot de Passe !\"); </script>";
                 }
+
             }else{
-                echo "2: Utilisateur inconnu !";
+                echo "<script> window.alert(\"Utilisateur Inconnu !\"); </script>";
             }
             
         }else{
-            echo "3: probleme de valeur de Post ";
+            echo "<script> window.alert(\"Mauvais champs !\"); </script>";
         }
     }else{
-        echo "4: déjà connecté !";
+        echo "<script> window.alert(\"Vous etes déjà connecté!\"); </script>";
     }
 }else{
-    echo "5: pas de requête POST !";
+    echo "<script> window.alert(\"d Mauvais paramêtres !\"); </script>";
 }
 
 ?>
