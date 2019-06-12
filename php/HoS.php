@@ -2,6 +2,7 @@
 
 class HoS{
 
+
     function __construct($Fname, $Lname, $pwd, $email, $date){
         $this->Fname = $Fname;
         $this->Lname = $Lname;
@@ -10,6 +11,9 @@ class HoS{
 		$this->dat = $date;
     }
 	
+
+
+
 }
 
 ?>
