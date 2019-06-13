@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <title>Add an absence or delay</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+  </head>
+  <body>
+     {% include 'navbar.html'%}
+    <section class="hero is-dark">
+	  <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">
+	        Add an absence or delay
+	      </h1>
+	    </div>
+	  </div>
+	</section>
+	<section class="section formulaire">
+
+	    <form class="formAdd" name="addAbsence" accept-charset="UTF-8" id="addAbsence">
+	    	<div class="columns">
+				<div class="field column" >
+				  <label class="label">Date : </label>
+				  <div class="control has-icons-left has-icons-right">
+				    <input name="date" id="datepickerDemoDefault" class="input" type="date" value="14/06/2019" autocomplete="off" id="datepicker">
+				    <span class="icon is-small is-right">
+      					<i class="far fa-calendar-alt"></i>
+				    </span>
+				  </div>
+				</div>
+				<div class="field column" >
+				  <label class="label">Beginning : </label>
+				  <div class="control has-icons-left has-icons-right">
+	    			<input name="beggingHour" type="text" autocomplete="off" id="timepicker" class="input" type="time">
+				    <span class="icon is-small is-right">
+		              <i class="far fa-clock"></i>
+				    </span>
+				  </div>
+				</div>
+				<div class="field column" >
+				  <label class="label">End : </label>
+				  <div class="control has-icons-left has-icons-right">
+	    			<input name="endHour" type="text" autocomplete="off" id="timepickerend" class="input" type="time">
+				    <span class="icon is-small is-right">
+		              <i class="far fa-clock"></i>
+				    </span>
+				  </div>
+				</div>		
+			</div>	
+			<div class="columns">
+				<div class="field column">
+				  <label class="label">Module : </label>
+				  <div class="control">
+				    <div class="select module">
+				      <select name="module" id="module">
+                <option value="-1" selected>Module</option>
+				      </select>
+				    </div>
+				  </div>
+				</div>
+				<div class="field column">
+				  <label class="label">UE : </label>
+				  <div class="control">
+				    <div class="select ue">
+				      <select name="ue" id="ue">
+              <option value="-1" selected>UE</option>
+				      </select>
+				    </div>
+				  </div>
+				</div>		
+				<div class="field column">
+				  <label class="label">Type of class : </label>
+				  <div class="control">
+				    <div class="select type">
+				      <select name="classType" id="classType">
+              <option value="-1" selected>Class</option>
+				      </select>
+				    </div>
+				  </div>
+				</div>	
+			</div>
+			
+			<div class="columns ">
+				<div class="column">
+					<div id="Entries" class="field">
+						<label class="label">Student : </label>
+						<div class="control has-icons-left has-icons-right" id="Entry" style="margin-top:10px;">
+							<input class="input studentName" type="text" placeholder="Student name" id="nameInput" name="student0"><!-- the name is student0 and increments for each student added (student1, student2, etc.)-->
+							<span class="icon is-small is-right">
+							<i class="fas fa-search"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="column" style="display: flex; flex-direction: column-reverse; max-width: fit-content;">
+					<button id="button" class="button is-dark">
+						<i class="fas fa-plus"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="field">
+			  <label class="label">Comment</label>
+			  <div class="control">
+			    <textarea class="textarea comment" placeholder="Comment..." name="comment"></textarea>
+			  </div>
+			</div>
+
+			<label class="checkbox">
+			  <input type="checkbox" name="delay">
+			  Mark as a delay
+			</label>
+		</br>
+			<label class="checkbox">
+			  <input type="checkbox" name="justify">
+			  Absence or delay justified
+			</label>
+			<div class="columns buttons-form">
+	            <div class="column "> 
+	                <div class="field">
+	                    <div class="control is-expanded">
+	                        <button class="button is-dark is-rounded is-fullwidth is-outlined submit" type="submit">Submit</button>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="column"> 
+	                <div class="field">
+	                    <div class="control is-expanded">
+							<a href="./interface.php"><!-- Send back to the homepage juste change the name of the file you are currently using -->
+								<button class="button is-danger is-rounded is-fullwidth is-outlined cancel" type="submit">Cancel</button>
+							</a>
+	                    </div>
+	                </div>
+	            </div>
+		        </div>    
+		    </div> 
+	    </form>
+	</section>
+
+   {% include 'footer.html'%}

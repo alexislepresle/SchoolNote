@@ -20,6 +20,9 @@
     define("RETURN_ERROR", 2);
     define("RETURN_UNKNOWN", 3);
 
+    define("ROLE_STUDENT", 1);
+    define("ROLE_TEACHER", 2);
+
     // Define new app
     $app = new \Slim\App;
 
@@ -39,22 +42,72 @@
 
         return $database;
     };
-    //logout
 
     //dashboard
     $app->get('/dashboard', function (Request $request, Response $response, array $args) {
         $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, CONCAT('UE ', `N_UE`), CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `NAME` FROM `ABSENCE` LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
-
         return $response->withJson(["data" => $data]);
     });
 
-    $app->get('/getabsence', function (Request $request, Response $response, array $args) {
-        return $response->withJson(["data" => "kekse"]);
+    $app->get('/getmodule', function (Request $request, Response $response, array $args) {
+		$data = $this->db->query("SELECT `N_MODULE`, `CODEMODULE` FROM `MODULE`")->fetchAll(PDO::FETCH_NUM);;
+        return $response->withJson($data);
+    });
+	
+	$app->post('/getue', function (Request $request, Response $response, array $args) {
+		
+		$var = json_decode($request->getBody());
+
+		$query = $this->db->select("MODULE", [
+			"N_UE"
+		], [
+			"N_MODULE" => $var->data
+		]);
+
+		$data = $this->db->query("SELECT `N_UE`, `CODEUE` FROM `UE` WHERE `N_UE` = '{$query[0]['N_UE']}'")->fetchAll(PDO::FETCH_NUM);
+        return $response->withJson($data);
+    });
+	
+	$app->post('/autoname', function (Request $request, Response $response, array $args) {
+		
+		$var = json_decode($request->getBody());
+		
+		$query = $this->db->select("STUDENT", [
+			'name' => Medoo::raw("CONCAT(<FIRSTNAMESTUDENT>, ' ',<LASTNAMESTUDENT>)")
+		], [
+			"FIRSTNAMESTUDENT[~]" => $var->data
+		]);
+		
+		return $response->withJson($query);
     });
 
-    // getabsence
-
     //addabsence
+	$app->post('/addabsence', function (Request $request, Response $response, array $args) {
+		
+		$var = json_decode($request->getBody());
+		
+		$start = $var->date . ' ' . $var->beggingHour . ':00';
+		$end = $var->date . ' ' . $var->endHour . ':00';
+		
+		$this->db->insert("ABSENCE", [
+			"N_MODULE" => $var->module,
+			"N_TEACHER" => 1,
+			"N_STUDENT" => "21504680",
+			"N_TYPE" => $var->classType,
+			"STATUSABSENCE" => ($var->justify == 'on')?1:0,
+			"DATEBEGIN" => $start,
+			"DATEEND" => $end,
+			"IS_DELAY" => ($var->delay == 'on')?1:0,
+			"COMMENT" => $var->comment
+		]);
+		
+		echo $start;
+		echo "<br>";
+		echo $end;
+		return;
+		
+		return $response->withJson($query);
+    });
 
     $app->post('/login', function (Request $request, Response $response, array $args) {
         if ( !is_valid_json($request->getBody()) )
@@ -75,6 +128,8 @@
                     "PASSWORDSTUDENT" => $var->password
                 ]
             ]);
+
+            $role = ROLE_STUDENT;
         }
         else
         {
@@ -86,12 +141,14 @@
                     "PASSWORDTEACHER" => $var->password
                 ]
             ]);
+
+            $role = ROLE_TEACHER;
         }
 
         if ( !is_array($query) || count($query) != 1 )
             return $response->withJson(["code" => RETURN_ERROR, "data" => "Wrong email or password."]);
 
-        $_SESSION['login'] = session_id();
+        $_SESSION['role'] = $role;
 
         return $response->withJson(["code" => RETURN_SUCCESS, "data" => "All good."]);
     });

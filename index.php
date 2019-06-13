@@ -2,8 +2,6 @@
     // Session management
     session_start();
 
-    // session_destroy();
-
     // Use space
     use Medoo\Medoo;
     use Psr\Http\Message\ServerRequestInterface as Request;
@@ -12,17 +10,36 @@
     // Include composer
     require 'vendor/autoload.php';
 
-    // Database init
-    $database = new Medoo([
-        'database_type' => 'sqlite',
-        'database_file' => 'store.db'
-    ]);
+    // Helper functions
+    function is_loggedin()
+    {
+        if ( empty($_SESSION['role']) )
+        {
+            header("Location: /login");
+            exit();
+        }
+    }
 
     // Define new app
     $app = new \Slim\App;
 
     // Fetch DI Container
     $container = $app->getContainer();
+
+    // Register Twig View helper
+    $container['db'] = function () {
+        $database = new Medoo([
+            #'database_type' => 'sqlite',
+            #'database_file' => 'store.db'
+            'database_type' => 'mysql',
+            'database_name' => 'agile2_bd',
+            'server' => 'localhost',
+            'username' => 'root',
+            'password' => ''
+        ]);
+
+        return $database;
+    };
 
     // Register Twig View helper
     $container['view'] = function ($c) {
@@ -39,37 +56,23 @@
     };
 
     $app->get('/', function (Request $request, Response $response, array $args) {
-        if ( empty($_SESSION['login']) )
-        {
-            header("Location: /login");
-            exit();
-        }
-
+        is_loggedin();
         return $this->view->render($response, 'dashboard.html');
     });
 
     $app->get('/login', function (Request $request, Response $response, array $args) {
-        if ( !empty($_SESSION['login']) )
+        if ( !empty($_SESSION['role']) )
         {
             header("Location: /");
             exit();
         }
 
-        return $this->view->render($response, 'login.html', [
-            //'name' => $args['name']
-        ]);
+        return $this->view->render($response, 'login.html');
     });
-
-    $app->get('/addAbsence', function (Request $request, Response $response, array $args) {
-        if ( empty($_SESSION['login']) )
-        {
-            header("Location: /login");
-            exit();
-        }
-
-        return $this->view->render($response, 'addAbsence.html', [
-            //'name' => $args['name']
-        ]);
+	
+	$app->get('/addAbsence', function (Request $request, Response $response, array $args) {
+        is_loggedin();
+        return $this->view->render($response, 'addAbsence.html');
     });
 
     $app->get('/logout', function (Request $request, Response $response, array $args) {
