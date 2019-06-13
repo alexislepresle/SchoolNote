@@ -1,3 +1,10 @@
+<?php
+include("restrict_acces.php");
+
+print_r($_SESSION);
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -34,7 +41,7 @@
 					  <a class="button is-dark">
 						<i class="fas fa-bell"></i>
 					  </a>
-					  <a class="button is-light">
+					  <a class="button is-light" href="php/deconnexion.php">
 						Log out
 					  </a>
 					</div>
