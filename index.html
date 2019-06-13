@@ -10,38 +10,86 @@
   </head>
   <body class="account-sign-in">
 	  <section class="section form_sign-in has-text-centered">
+
+	  	<?php
+		  	require_once("../php/StudentManager.php");
+			require_once("../php/TeacherManager.php");
+			require_once("../php/HoSManager.php");
+
+
+			    
+			if (!empty($_POST)){
+			    
+			    if (!isset($_SESSION['id'])){
+			        
+			        if ($_POST['password'] && $_POST['username']){
+			            
+			            $listeStudent = StudentManager::selectAll();
+			            $listeTeacher = TeacherManager::selectAll();
+			            $Hos = HoSManager::SelectCurrent();
+			            
+			            $liste = $listeStudent + $misteTeacher + $Hos;
+			            
+			            foreach($liste as $value){
+			                if ($value['Email'] == $_POST['username']){
+			                    
+			                    if ($value['Password'] == $_POST['password']){
+			                        
+			                        session_start();
+			                        $_SESSION['id'] = $value['num'];
+			                        header("Location: interface.php")
+			                        //exit();
+			                    }else{
+			                         $erreur =  "Mauvais mot de passe !";
+			                    }
+			                    $erreur =  "Utilisateur inconnu !";
+			                }
+			            }
+			        }
+			    }
+			}
+		?>
+
+
 	    <div class="container is-fullhd"style="">
 	      <h1 class="title"> SchoolNote </h1>
 
-			<div class="field">
-			  <p class="control has-icons-left has-icons-right">
-			    <input class="input" type="email" placeholder="Email">
-			    <span class="icon is-small is-left">
-			      <i class="fas fa-envelope"></i>
-			    </span>
-			    <span class="icon is-small is-right">
-			      <i class="fas fa-check"></i>
-			    </span>
-			  </p>
-			</div>
+			<form action="interface.php" method="post"> 
+				<div class="field">
+				  <p class="control has-icons-left has-icons-right">
+				    <input class="input" type="email" placeholder="Email">
+				    <span class="icon is-small is-left">
+				      <i class="fas fa-envelope"></i>
+				    </span>
+				    <span class="icon is-small is-right">
+				      <i class="fas fa-check"></i>
+				    </span>
+				  </p>
+				</div>
 
-			<div class="field">
-			  <p class="control has-icons-left">
-			    <input class="input" type="password" placeholder="Password">
-			    <span class="icon is-small is-left">
-			      <i class="fas fa-lock"></i>
-			    </span>
-			  </p>
-			</div>
+				<div class="field">
+				  <p class="control has-icons-left">
+				    <input class="input" type="password" placeholder="Password">
+				    <span class="icon is-small is-left">
+				      <i class="fas fa-lock"></i>
+				    </span>
+				  </p>
+				</div>
 
-			<div class="field">
-			  <p class="control">
-			    <button class="button is-dark is-fullwidth">
-			      Login
-			    </button>
-			  </p>
-			</div>
+				<div class="notification is-danger">
+				  <button class="delete"></button>
+				  <?php if( ! empty( $erreur ) ) echo  $erreur ?> 
+				</div>
 
+
+				<div class="field">
+				  <p class="control">
+				    <button class="button is-dark is-fullwidth">
+				      Login
+				    </button>
+				  </p>
+				</div>
+			</form> 
 	  </section>
   </body>
 </html>
