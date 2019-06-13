@@ -24,7 +24,7 @@
 				</div>
 			</section>
 			
-			<?php include('./includes/journalProf.html'); ?>
+			<?php include('./includes/journalProf.php'); ?>
 
 		</div>
 		<?php include('./includes/footer.html'); ?>
