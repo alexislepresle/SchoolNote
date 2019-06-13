@@ -7,7 +7,6 @@ class StudentManager{
     private static $GET_ALL_STUDENT = 'SELECT * FROM STUDENT';
     private static $EXIST = 'SELECT * FROM STUDENT WHERE MAILSTUDENT = ?';
 
-
     static function selectAll(){
 
         $query = Bdd::getInstance()->prepare(self::$GET_ALL_STUDENT);

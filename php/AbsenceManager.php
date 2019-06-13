@@ -4,7 +4,11 @@ require_once("Absence.php");
 
 class AbsenceManager{
 
-    private static $GET_ALL_ABSENCE = 'SELECT mod.CODEMODULE, tea.LASTNAMETEACHER, N_STUDENT, les.CODETYPE, hos.LASTNAMEHEADOFSTUDY, DATEBEGIN, DATEEND FROM ABSENCE abs,  ';
+    private static $GET_ALL_ABSENCE = 'SELECT mod.CODEMODULE, tea.LASTNAMETEACHER, stu.N_STUDENT, les.CODETYPE, DATEBEGIN, DATEEND, COMMENT FROM ABSENCE abs
+										join MODULE mod using(N_TYPE);
+										join TEACHER tea using(N_TEACHER)
+										join LESSON_TYPE les using(N_TYPE)
+										join STUDENT stu using(N_STUDENT)';
 
     static function selectCurrent(){
 
