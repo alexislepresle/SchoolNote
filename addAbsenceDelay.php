@@ -40,7 +40,7 @@
 				<div class="field column" >
 				  <label class="label">Beginning : </label>
 				  <div class="control has-icons-left has-icons-right">
-	    			<input type="text" autocomplete="off" id="timepicker" class="input hoursBegin" type="time">
+	    			<input type="time" autocomplete="off" id="timepicker" class="input hoursBegin" type="time">
 				    <span class="icon is-small is-right">
 		              <i class="far fa-clock"></i>
 				    </span>
@@ -49,7 +49,7 @@
 				<div class="field column" >
 				  <label class="label">End : </label>
 				  <div class="control has-icons-left has-icons-right">
-	    			<input type="text" autocomplete="off" id="timepickerend" class="input hoursEnd" type="time">
+	    			<input type="time" autocomplete="off" id="timepickerend" class="input hoursEnd" type="time">
 				    <span class="icon is-small is-right">
 		              <i class="far fa-clock"></i>
 				    </span>
@@ -108,10 +108,25 @@
 			  </div>
 			</div>
 
-			<label class="checkbox">
-			  <input type="checkbox">
-			  Absence or delay justify
-			</label>
+			<span class="field columns">
+				<span class="column is-left">
+					<label class="checkbox">
+						<input type="checkbox">
+						justified
+					</label>
+				</span>
+				
+				<span class="column is-right">
+					<label class="radio">
+						<input type="radio" id="delay" name="type" value="Delay" checked>
+						<label for="delay">Delay</label>
+						<input type="radio" id="absence" name="type" value="Absence">
+						<label for="absence">Absence</label>
+						
+					</label>
+				</span>
+			</span>
+
 			<div class="columns buttons-form">
 	            <div class="column "> 
 	                <div class="field">
