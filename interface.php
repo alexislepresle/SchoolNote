@@ -1,3 +1,9 @@
+<?php
+require_once("./php/restrict_acces.php");
+print_r($_SESSION);
+
+?>
+
 <html>
   <head>
     <meta charset="utf-8">

@@ -5,7 +5,9 @@ require_once("Teacher.php");
 class TeacherManager{
 
     private static $GET_ALL_TEACHER = 'SELECT * FROM teacher';
-    private static $EXIST = 'SELECT * FROM STUDENT WHERE MAILTEACHER = ?';
+    private static $EXIST = 'SELECT * FROM TEACHER WHERE MAILTEACHER = ?';
+
+
 
     static function selectAll(){
 
@@ -43,7 +45,7 @@ class TeacherManager{
             return NULL;
         }
     }
-
+}
 
 
 ?>

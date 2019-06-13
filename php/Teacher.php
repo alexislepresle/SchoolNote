@@ -2,7 +2,7 @@
 
 class Teacher{
 
-    function __construct($num, $Lname, $Fname, $mail, $pwd, $Hos){
+    function __construct($num, $Lname, $Fname, $mail, $pwd, $HoS){
 
         $this->num = $num;
         $this->Lname = $Lname;
@@ -15,6 +15,18 @@ class Teacher{
 
     public function getPwd(){
         return $this->pwd;
+    }
+
+    public function getNum(){
+        return $this->num;
+    }
+
+    public function isHoS(){
+        if ($this->HoS == 1){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 
 }
