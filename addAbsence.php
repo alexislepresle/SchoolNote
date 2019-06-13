@@ -16,7 +16,38 @@
 </head>
 
 <body>
+<<<<<<< HEAD
   <?php include('./includes/navbar.html'); ?>
+=======
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <h1 class="title"> SchoolNote</h1>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-dark">
+              <i class="fas fa-bell"></i>
+            </a>
+            <a class="button is-light">
+              Log out
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+>>>>>>> abecd9135124b344962e2c6d2a904ba6887a7f13
   <div class="form-input">
 
 
@@ -95,7 +126,11 @@
   $.datepicker.setDefaults($.datepicker.regional["fr"]);
   $('#timepicker').timepicker({
     timeFormat: 'HH:mm',
+<<<<<<< HEAD
     interval: '30',
+=======
+    interval: '5',
+>>>>>>> abecd9135124b344962e2c6d2a904ba6887a7f13
     minTime: '8:00',
     maxTime: '18:00',
     defaultTime: '8:00',

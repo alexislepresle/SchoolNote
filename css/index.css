@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
 	height: 100vh;
 }
@@ -6,6 +7,9 @@ td{
 }
 
 .account-sign-in{
+=======
+.form-input{
+>>>>>>> abecd9135124b344962e2c6d2a904ba6887a7f13
 	background: #d0e9fb;
 	width: 100%;
 	height: 100vh;
@@ -25,6 +29,7 @@ td{
 	flex-direction: column;
 	text-align: -moz-center;
 }
+<<<<<<< HEAD
 .formAdd{
 	width: 600px;
 	margin: auto;
@@ -34,4 +39,14 @@ td{
 }
 .buttons-form{
 	padding-top: 50px;
+=======
+
+.box1, .box2, .box3 {
+	float: left;
+	width: 32%;
+	margin-right: 2%;
+	padding: 20px;
+	background: #eee;
+	box-sizing: border-box;
+>>>>>>> abecd9135124b344962e2c6d2a904ba6887a7f13
 }
