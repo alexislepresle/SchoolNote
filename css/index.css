@@ -1,3 +1,10 @@
+body{
+	height: 100vh;
+}
+td{
+	text-align: center !important;
+}
+
 .form-input{
 	background: #d0e9fb;
 	width: 100%;
@@ -10,6 +17,10 @@
 
 .form_sign-in{
 	width: 500px;
+	margin: auto;
+	display: flex;
+	height: 100vh;
+	align-items: center;
 }
 
 .journal{
@@ -17,6 +28,16 @@
 	display: flex;
 	flex-direction: column;
 	text-align: -moz-center;
+}
+.formAdd{
+	width: 600px;
+	margin: auto;
+}
+.ui-timepicker-standard{
+	z-index: 10 !important;
+}
+.buttons-form{
+	padding-top: 50px;
 }
 
 .box1, .box2, .box3 {
