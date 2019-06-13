@@ -40,7 +40,7 @@ print_r($_SESSION);
 					  <a class="button is-dark">
 						<i class="fas fa-bell"></i>
 					  </a>
-					  <a class="button is-light">
+					  <a class="button is-light" href="php/deconnexion.php">
 						Log out
 					  </a>
 					</div>
