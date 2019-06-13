@@ -2,13 +2,19 @@
 
 class Teacher{
 
+    function __construct($num, $Lname, $Fname, $mail, $pwd, $Hos){
 
-    function __construct($Fname, $Lname, $pwd, $email){
-        $this->Fname = $Fname;
+        $this->num = $num;
         $this->Lname = $Lname;
+        $this->Fname = $Fname;
+        $this->email = $mail;
         $this->pwd = $pwd;
-        $this->email = $email;
+        $this->HoS = $HoS;
 
+    }
+
+    public function getPwd(){
+        return $this->pwd;
     }
 
 }
