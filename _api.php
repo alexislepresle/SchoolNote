@@ -33,8 +33,8 @@
             'database_type' => 'mysql',
             'database_name' => 'agile2_bd',
             'server' => 'localhost',
-            'username' => 'agile',
-            'password' => 'agile'
+            'username' => 'agile2',
+            'password' => 'iesh1Dah6Iet8rai'
         ]);
 
         return $database;
@@ -43,15 +43,16 @@
 
     //dashboard
     $app->get('/dashboard', function (Request $request, Response $response, array $args) {
-        $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, CONCAT('UE ', `N_UE`), CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `NAME` FROM `absence` LEFT JOIN `module` ON `absence`.`N_MODULE` = `module`.`N_MODULE` LEFT JOIN `student` ON `student`.`N_STUDENT` = `absence`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
+        $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, CONCAT('UE ', `N_UE`), CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `NAME` FROM `ABSENCE` LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
 
         return $response->withJson(["data" => $data]);
     });
 
-    // getabsence
-    $app->post('/getabsence', function (Request $request, Response $response, array $args) {
-        return;
+    $app->get('/getabsence', function (Request $request, Response $response, array $args) {
+        return $response->withJson(["data" => "kekse"]);
     });
+
+    // getabsence
 
     //addabsence
 
@@ -66,7 +67,7 @@
 
         if ( strpos($var->email, 'etu.unicaen.fr') !== false )
         {
-            $query = $this->db->select("student", [
+            $query = $this->db->select("STUDENT", [
                 "N_STUDENT"
             ], [
                 "AND" => [
@@ -77,7 +78,7 @@
         }
         else
         {
-            $query = $this->db->select("teacher", [
+            $query = $this->db->select("TEACHER", [
                 "N_TEACHER"
             ], [
                 "AND" => [

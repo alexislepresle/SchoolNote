@@ -10,6 +10,9 @@ function getFormData($form) {
 }
 
 $(function () {
+
+    var inputCount = 0;
+
     $("#datepickerend").datepicker({
         dateFormat: 'dd-mm-yy',
         currentText: "Now"
@@ -41,7 +44,6 @@ $(function () {
 
     $("#form-signin").submit(function (event) {
         event.preventDefault();
-        console.log(getFormData($(this)));
         $.post("_api.php/login", JSON.stringify(getFormData($(this))))
             .done(function (data) {
                 var responseCode = data['code'];
@@ -56,15 +58,83 @@ $(function () {
 
     $("#addAbsence").submit(function (event) {
         event.preventDefault();
-        // $.post("_api.php/login", JSON.stringify($(this).serializeArray()))
-        //     .done(function (data) {
-        //         console.log(data);
-        //     });
-        console.log(getFormData($(this)));
+        var isComplete = true;
+        $.each($(this).serializeArray(), function (index, valueObject) {
+            var value = valueObject['value'];
+            if (value == null || value == "") {
+                isComplete = false;
+            }
+        });
+        if (isComplete) {
+            $.post("_api.php/addabsence", JSON.stringify(getFormData($(this))))
+                .done(function (data) {
+                    console.log(data);
+                });
+
+        } else {
+            alert("Please fill all the Inputs");
+            return;
+        }
+
     });
 
     $("#absenceTable").DataTable({
         "ajax": '_api.php/dashboard',
     });
 
+
+    $("#button").click(function () {
+        inputCount++;
+        if (inputCount < 10) {
+            $("<div class='control has-icons-left has-icons-right' id='Entry' style='margin-top:10px;'><input class='input studentName' type='text' placeholder='Student name' id='nameInput' name=student" + inputCount + "><span class='icon is-small is-right'><i class='fas fa-search'></i></span></div > ").appendTo($("#Entries"))
+        }
+    });
+
+    $("#addAbsence").ready(function () {
+        $.get("_api.php/getmodule")
+            .done(function (data) {
+                $.each(data, function (index, value) {
+                    var option = $("<option/>", {
+                        value: value[0],
+                        text: value[1]
+                    });
+                    $('#module').append(option);
+                });
+                $.each(["eins", "zwei"], function (value) {
+                    var option = $("<option/>", {
+                        value: value,
+                        text: value
+                    });
+                    $("#class").append(option);
+                });
+            });
+        $("#module").on('change', function () {
+            $.post("_api.php/getue", JSON.stringify({ "data": $(this).val() })).done(function (data) {
+                $.each(data, function (index, value) {
+                    var option = $("<option/>", {
+                        value: value[0],
+                        text: value[1]
+                    });
+                    $('#ue').append(option);
+                });
+            });
+        });
+
+        $("#nameInput").autocomplete({
+            source: function (request, response) {
+                $.post("_api.php/autoname", JSON.stringify({ "data": request.term })
+                    , function (data) {
+                        var suggestions = [];
+                        $.each(data, function (index, value) {
+                            suggestions.push(value['name']);
+                        });
+                        response(suggestions);
+                    });
+            },
+            minLength: 4
+        });
+
+
+
+    });
 });
