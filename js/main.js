@@ -71,3 +71,19 @@ $(function () {
     );
 
 });
+
+var count=1;
+document.getElementById('button').onclick = function(){
+	div = document.getElementById('Entries'); 
+	var input = document.getElementById('Entry').cloneNode(true);
+	div.appendChild(input);
+	var name = "student";
+	list = document.getElementsByClassName('input studentName');
+	for(var i=0;i<list.length;i++){
+		name+=i;
+		list[i].name=name;
+		name="student";
+	}
+	count++;
+    return false;
+}
