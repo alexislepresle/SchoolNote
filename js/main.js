@@ -10,6 +10,35 @@ function getFormData($form) {
 }
 
 $(function () {
+    $("#datepickerend").datepicker({
+        dateFormat: 'dd-mm-yy',
+        currentText: "Now"
+    });
+    $.datepicker.setDefaults($.datepicker.regional["fr"]);
+    $('#timepicker').timepicker({
+        timeFormat: 'HH:mm',
+        interval: '30',
+        minTime: '8:00',
+        maxTime: '18:00',
+        defaultTime: '8:00',
+        startTime: '8:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+    $('#timepickerend').timepicker({
+        timeFormat: 'HH:mm',
+        interval: '30',
+        minTime: '8:00',
+        maxTime: '18:00',
+        defaultTime: '8:00',
+        startTime: '8:00',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+
     $("#form-signin").submit(function (event) {
         event.preventDefault();
         console.log(getFormData($(this)));
@@ -24,6 +53,7 @@ $(function () {
             });
     });
 
+
     $("#addAbsence").submit(function (event) {
         event.preventDefault();
         // $.post("_api.php/login", JSON.stringify($(this).serializeArray()))
@@ -33,6 +63,11 @@ $(function () {
         console.log(getFormData($(this)));
     });
 
-    $("#absenceTable").DataTable();
+    $("#absenceTable").DataTable(
+        // $.ajax({
+        //     url: "",
+        // })
+        { "data": [["13\/06\/2019", "M1101", "UE 1", "Estelle Gertner"], ["13\/06\/2019", "M2204", "UE 4", "Estelle Gertner"], ["13\/06\/2019", "M1104", "UE 1", "Ronan Poinsignon"], ["29\/06\/2019", "M1101", "UE 1", "Arthur Cuiller"], ["12\/06\/2019", "M1104", "UE 1", "Estelle Gertner"], ["13\/06\/2019", "M1204", "UE 2", "Pierre Noisette"], ["17\/04\/2019", "M1201", "UE 2", "Pierre Noisette"], ["13\/05\/2019", "M4301", "UE 10", "Pierre Noisette"]] }
+    );
 
 });

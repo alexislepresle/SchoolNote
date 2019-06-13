@@ -35,6 +35,12 @@
         return $database;
     };
 
+    $app->get('/dashboard', function (Request $request, Response $response, array $args) {
+        $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, CONCAT('UE ', `N_UE`), CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `NAME` FROM `absence` LEFT JOIN `module` ON `absence`.`N_MODULE` = `module`.`N_MODULE` LEFT JOIN `student` ON `student`.`N_STUDENT` = `absence`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
+
+        return $response->withJson(["data" => $data]);
+    });
+
     $app->post('/login', function (Request $request, Response $response, array $args) {
         if ( !is_valid_json($request->getBody()) )
             return $response->withJson(["code" => RETURN_ERROR, "data" => "Invalid response. Please try again."]);
