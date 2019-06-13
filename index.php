@@ -71,7 +71,7 @@ if (!empty($_POST)){
                     echo "<script> window.alert(\"Wrong Password !\"); </script>";
 				}
 			}else if (!empty($teacher)){
-				if ($teacher->getPwd() == $_POST['password']){
+				if ($teacher->getPwd() == $_POST['password']){	
                     
                     session_start();
 					$_SESSION['id'] = $teacher->getNum();

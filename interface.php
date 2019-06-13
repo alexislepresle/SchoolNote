@@ -1,6 +1,6 @@
 <?php
 require_once("./php/restrict_acces.php");
-print_r($_SESSION);
+//print_r($_SESSION);
 
 ?>
 
@@ -14,7 +14,14 @@ print_r($_SESSION);
     <link rel="stylesheet" href="./css/index.css">
   </head>
 	<body>
-		<?php include('./includes/navbarProf.html'); ?>
+		<?php if ($_SESSION['code'] == 1) {
+			include('./includes/navbarStudent.html');
+		}elseif ($_SESSION['code'] == 2) {
+			include('./includes/navbarProf.html');
+		}else{
+			include("./includes/navbarProf.html");
+		}
+		?>
 		<div class="container journal">
 
 			<section class="hero">
@@ -30,7 +37,14 @@ print_r($_SESSION);
 				</div>
 			</section>
 			
-			<?php include('./includes/journalProf.php'); ?>
+			<?php if ($_SESSION['code'] == 1) {
+				include('./includes/journalStudent.php');
+			}elseif ($_SESSION['code'] == 2) {
+				include('./includes/journalProf.php');
+			}else{
+				include("./includes/journalHeadProf.php");
+			}
+			?>
 
 		</div>
 		<?php include('./includes/footer.html'); ?>
