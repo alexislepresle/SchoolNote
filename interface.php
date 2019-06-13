@@ -40,7 +40,7 @@ require_once("./php/restrict_acces.php");
 			<?php if ($_SESSION['code'] == 1) {
 				include('./includes/journalStudent.php');
 			}elseif ($_SESSION['code'] == 2) {
-				include('./includes/journalProf.php');
+				include('./includes/journalProf.php');	
 			}else{
 				include("./includes/journalHeadProf.php");
 			}
