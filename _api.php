@@ -33,8 +33,8 @@
             'database_type' => 'mysql',
             'database_name' => 'agile2_bd',
             'server' => 'localhost',
-            'username' => 'root',
-            'password' => ''
+            'username' => 'agile',
+            'password' => 'agile'
         ]);
 
         return $database;
@@ -64,15 +64,28 @@
         if ( empty($var->email) || empty($var->password) )
             return $response->withJson(["code" => RETURN_ERROR, "data" => "Please fill in all fields."]);
 
-        $query = $this->db->select("users", [
-            "salt",
-            "role"
-        ], [
-            "AND" => [
-                "email" => $var->email,
-                "password" => $var->password
-            ]
-        ]);
+        if ( strpos($var->email, 'etu.unicaen.fr') !== false )
+        {
+            $query = $this->db->select("student", [
+                "N_STUDENT"
+            ], [
+                "AND" => [
+                    "MAILSTUDENT" => $var->email,
+                    "PASSWORDSTUDENT" => $var->password
+                ]
+            ]);
+        }
+        else
+        {
+            $query = $this->db->select("teacher", [
+                "N_TEACHER"
+            ], [
+                "AND" => [
+                    "MAILTEACHER" => $var->email,
+                    "PASSWORDTEACHER" => $var->password
+                ]
+            ]);
+        }
 
         if ( !is_array($query) || count($query) != 1 )
             return $response->withJson(["code" => RETURN_ERROR, "data" => "Wrong email or password."]);
