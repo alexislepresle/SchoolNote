@@ -12,13 +12,20 @@
 
 		<div class="navbar-menu" id="navMenu">
 			<div class="navbar-start" id="addAbsenceNavbarButton">
-			{% if session.role > 1 %}
-				<a class="navbar-item" href="/addAbsence">
-					Add an absence
-				</a>
-			{% endif %}
+				{% if session.role > 1 %}
+					<a class="navbar-item" href="/addAbsence">
+						Add an absence
+					</a>
+				{% endif %}
+				{% if session.role == 3 %}
+					<a class="navbar-item" href="/includes/createpdf.php">
+						Export recap to PDF
+					</a>
+				{% endif %}
 			</div>
 
+
+			
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">

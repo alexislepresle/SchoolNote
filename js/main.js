@@ -85,17 +85,46 @@ $(function () {
 
     });
 
+
+
+    $.fn.dataTableExt.oSort["customNumber-desc"] = function (x, y) {
+        alert(x + " : " + y);
+        return x < y;
+    };
+
+    $.fn.dataTableExt.oSort["customNumber-asc"] = function (x, y) {
+        return x > y;
+    }
+
+
     $("#absenceTable").DataTable({
         "ajax": '_api.php/dashboard',
         "columnDefs": [
             {
-                "targets": 6,
+                "targets": 7,
                 "render": function (data, type, row, meta) {
-                    if (data == 1) {
-                        return "<i class='fal fa-times'></i>";
-                    } else {
-                        return "<i class='fal fa-check'></i>"
-                    }
+                    var style = "";
+                    if (data == 0)
+                        style = "times"
+                    else
+                        style = "check";
+                    return "<i class='fas fa-" + style + " data-order=' " + data + " '></i>";
+                },
+                "sType": "customNumber",
+            },
+            {
+                "targets": 8,
+                "visible": false,
+            },
+            {
+                "targets": 4,
+                "render": function (data, type, row, meta) {
+                    var style = "";
+                    if (data == 0)
+                        style = "times"
+                    else
+                        style = "check";
+                    return "<i class='fas fa-" + style + " data-order=' " + data + " '></i>";
                 }
             }
         ]

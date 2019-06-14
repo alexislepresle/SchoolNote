@@ -45,46 +45,35 @@
     };
 
     //dashboard
-    $app->get('/dashboard', function (Request $request, Response $response, array $args) {
-		
-		
-		/*switch ( $_SESSION['role'] )
+    $app->get('/dashboard', function (Request $request, Response $response, array $args) {     
+		switch ( $_SESSION['role'] )
 		{
-            case 1:
-            $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
-                                            `CODEUE`, `CODETYPE`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
-                                            `STATUSABSENCE` 
-                                            FROM `ABSENCE` 
-                                            LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` 
-                                            LEFT JOIN `UE` ON `UE`.`N_UE` = `MODULE`.`N_UE` 
-                                            LEFT JOIN `LESSON_TYPE` ON `LESSON_TYPE`.`N_TYPE` = `ABSENCE`.`N_TYPE` 
-                                            LEFT JOIN `TEACHER` ON `TEACHER`.`N_TEACHER` = `ABSENCE`.`N_TEACHER` 
-                                            LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT`
-                                            WHERE  `STUDENT`.`N_STUDENT` = $_SESSION['id']")->fetchAll(PDO::FETCH_NUM);
-                break;
-            
-            case 2:
-            $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
-                                            `CODEUE`, `CODETYPE`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
-                                            `STATUSABSENCE` 
-                                            FROM `ABSENCE` 
-                                            LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` 
-                                            LEFT JOIN `UE` ON `UE`.`N_UE` = `MODULE`.`N_UE` 
-                                            LEFT JOIN `LESSON_TYPE` ON `LESSON_TYPE`.`N_TYPE` = `ABSENCE`.`N_TYPE` 
-                                            LEFT JOIN `TEACHER` ON `TEACHER`.`N_TEACHER` = `ABSENCE`.`N_TEACHER` 
-                                            LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
-                break;
-        }*/
-        
-        $data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
-        `CODEUE`, `CODETYPE`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
-        `STATUSABSENCE` 
-        FROM `ABSENCE` 
-        LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` 
-        LEFT JOIN `UE` ON `UE`.`N_UE` = `MODULE`.`N_UE` 
-        LEFT JOIN `LESSON_TYPE` ON `LESSON_TYPE`.`N_TYPE` = `ABSENCE`.`N_TYPE` 
-        LEFT JOIN `TEACHER` ON `TEACHER`.`N_TEACHER` = `ABSENCE`.`N_TEACHER` 
-        LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
+			case ROLE_STUDENT:
+				$data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
+										`CODEUE`, `CODETYPE`, `IS_DELAY`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
+										`STATUSABSENCE`, `N_ABSENCE` 
+										FROM `ABSENCE` 
+										LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` 
+										LEFT JOIN `UE` ON `UE`.`N_UE` = `MODULE`.`N_UE` 
+										LEFT JOIN `LESSON_TYPE` ON `LESSON_TYPE`.`N_TYPE` = `ABSENCE`.`N_TYPE` 
+										LEFT JOIN `TEACHER` ON `TEACHER`.`N_TEACHER` = `ABSENCE`.`N_TEACHER` 
+										LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT` 
+										WHERE `ABSENCE`.`N_STUDENT` = {$_SESSION['id']}")->fetchAll(PDO::FETCH_NUM);
+				break;
+				
+			case ROLE_TEACHER:
+			case ROLE_DIRECTOR:
+				$data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
+							`CODEUE`, `CODETYPE`, `IS_DELAY`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
+							`STATUSABSENCE`, `N_ABSENCE` 
+							FROM `ABSENCE` 
+							LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` 
+							LEFT JOIN `UE` ON `UE`.`N_UE` = `MODULE`.`N_UE` 
+							LEFT JOIN `LESSON_TYPE` ON `LESSON_TYPE`.`N_TYPE` = `ABSENCE`.`N_TYPE` 
+							LEFT JOIN `TEACHER` ON `TEACHER`.`N_TEACHER` = `ABSENCE`.`N_TEACHER` 
+							LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT`")->fetchAll(PDO::FETCH_NUM);
+				break;
+		}
         
         return $response->withJson(["data" => $data]);
     });
