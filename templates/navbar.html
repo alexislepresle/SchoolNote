@@ -18,11 +18,35 @@
 					</a>
 				{% endif %}
 				{% if session.role == 3 %}
-					<a class="navbar-item" href="/includes/createpdf.php">
-						Export recap to PDF
-					</a>
+					<div class="navbar-item has-dropdown is-hoverable">
+							<a class="navbar-link">
+								Export recap to PDF
+							</a>
+					
+							<div class="navbar-dropdown">
+								<a class="navbar-item" href="/includes/createpdf.php">
+									<strong>All semesters</strong>
+								</a>
+								<hr class="navbar-divider">
+								<a class="navbar-item" href="/includes/createpdfs1.php">
+									S1
+								</a>
+								<a class="navbar-item" href="/includes/createpdfs2.php">
+									S2
+								</a>
+								<a class="navbar-item" href="/includes/createpdfs3.php">
+									S3
+								</a>
+								<a class="navbar-item" href="/includes/createpdfs4.php">
+									S4
+								</a>
+							</div>
+						</div>
 				{% endif %}
 			</div>
+
+
+
 
 
 			

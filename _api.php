@@ -62,6 +62,18 @@
 				break;
 				
 			case ROLE_TEACHER:
+				$data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
+							`CODEUE`, `CODETYPE`, `IS_DELAY`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
+							`STATUSABSENCE`, `N_ABSENCE` 
+							FROM `ABSENCE` 
+							LEFT JOIN `MODULE` ON `ABSENCE`.`N_MODULE` = `MODULE`.`N_MODULE` 
+							LEFT JOIN `UE` ON `UE`.`N_UE` = `MODULE`.`N_UE` 
+							LEFT JOIN `LESSON_TYPE` ON `LESSON_TYPE`.`N_TYPE` = `ABSENCE`.`N_TYPE` 
+							LEFT JOIN `TEACHER` ON `TEACHER`.`N_TEACHER` = `ABSENCE`.`N_TEACHER` 
+							LEFT JOIN `STUDENT` ON `STUDENT`.`N_STUDENT` = `ABSENCE`.`N_STUDENT` 
+							WHERE `ABSENCE`.`N_TEACHER` = {$_SESSION['id']}")->fetchAll(PDO::FETCH_NUM);
+				break;
+				
 			case ROLE_DIRECTOR:
 				$data = $this->db->query("SELECT DATE_FORMAT(`DATEBEGIN`, '%d/%m/%Y'), `CODEMODULE`, 
 							`CODEUE`, `CODETYPE`, `IS_DELAY`, CONCAT(`FIRSTNAMETEACHER`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMETEACHER`,1,1)),LOWER(SUBSTRING(`LASTNAMETEACHER`,2)))) AS `TNAME`, CONCAT(`FIRSTNAMESTUDENT`, ' ', CONCAT(UPPER(SUBSTRING(`LASTNAMESTUDENT`,1,1)),LOWER(SUBSTRING(`LASTNAMESTUDENT`,2)))) AS `SNAME`, 
@@ -113,7 +125,6 @@
 		
 		for ($i=0; $i<=9; $i++)
 		{
-			
 			if ( empty($var->{student . $i}) )
 				continue;			
 
@@ -131,6 +142,22 @@
 				"IS_DELAY" => ($var->delay == 'on')?1:0,
 				"COMMENT" => $var->comment
 			]);
+			
+			$email = $this->db->get("STUDENT", "MAILSTUDENT", [ "N_STUDENT" => $temp[1] ]);
+			$code = $this->db->get("MODULE", "CODEMODULE", [ "N_MODULE" => $var->module ]);
+			
+			//mail($_SESSION['mail'], "lehrermail", "für den lehrer");
+			//mail($email, "studentmail", "für den student");
+			
+			$teacher_mail = "You added an absence for %s for a lesson of the module %s at %s from %s to %s.
+Sent from SchoolNote.";
+
+			$student_mail = "You were absent for the lesson of the module %s at %s from %s to %s.
+Please contact the Head of Studies to justify your absence.
+Sent from SchoolNote.";
+								
+			mail($_SESSION['mail'], "Teacher mail", sprintf($teacher_mail, $email, $code, $var->date, $var->beggingHour, $var->endHour));
+			mail($email, "Student mail", sprintf($student_mail, $code, $var->date, $var->beggingHour, $var->endHour));
 		}
 		
 		return $response->withJson(["code" => RETURN_SUCCESS, "data" => "All good."]);

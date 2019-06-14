@@ -86,17 +86,6 @@ $(function () {
     });
 
 
-
-    $.fn.dataTableExt.oSort["customNumber-desc"] = function (x, y) {
-        alert(x + " : " + y);
-        return x < y;
-    };
-
-    $.fn.dataTableExt.oSort["customNumber-asc"] = function (x, y) {
-        return x > y;
-    }
-
-
     $("#absenceTable").DataTable({
         "ajax": '_api.php/dashboard',
         "order": [[0, "desc"]],
@@ -169,7 +158,7 @@ $(function () {
                         response(suggestions);
                     });
             },
-            minLength: 4
+            minLength: 3
         });
     });
 
