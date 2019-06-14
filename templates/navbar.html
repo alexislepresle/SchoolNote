@@ -1,29 +1,61 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
-			<a class="navbar-item" href="https://bulma.io">
-				<h1 class="title"> SchoolNote</h1>
+			<a class="navbar-item" href="https://dev-agile2.users.info.unicaen.fr/">
+				<h1 class="title">SchoolNote</h1>
 			</a>
-
-			<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
-				<span aria-hidden="true"></span>
+			<a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
 			</a>
 		</div>
 
-		<div id="navbarBasicExample" class="navbar-menu">
+		<div class="navbar-menu" id="navMenu">
 			<div class="navbar-start" id="addAbsenceNavbarButton">
-				<a class="navbar-item" href="/addAbsence">
-					Add an absence
-				</a>
+				{% if session.role > 1 %}
+					<a class="navbar-item" href="/addAbsence">
+						Add an absence
+					</a>
+				{% endif %}
+				{% if session.role == 3 %}
+					<div class="navbar-item has-dropdown is-hoverable">
+							<a class="navbar-link">
+								Export recap to PDF
+							</a>
+					
+							<div class="navbar-dropdown">
+								<a class="navbar-item" href="/includes/createpdf.php">
+									<strong>All semesters</strong>
+								</a>
+								<hr class="navbar-divider">
+								<a class="navbar-item" href="/includes/createpdfs1.php">
+									S1
+								</a>
+								<a class="navbar-item" href="/includes/createpdfs2.php">
+									S2
+								</a>
+								<a class="navbar-item" href="/includes/createpdfs3.php">
+									S3
+								</a>
+								<a class="navbar-item" href="/includes/createpdfs4.php">
+									S4
+								</a>
+							</div>
+						</div>
+				{% endif %}
 			</div>
 
+
+
+
+
+			
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
-						<a class="button is-dark">
-							<i class="fas fa-bell"></i>
-						</a>
+						<div class="tags has-addons" style="margin: 0; padding-right: 40px;">
+								<span class="tag is-success">You're connected as {{ (session.role == 1) ? "Student" : (session.role == 2) ? "Teacher" : "Head of Studies" }} : {{ session.mail }}</span>
+						</div>
 						<a class="button is-light" href="/logout">
 							Log out
 						</a>
@@ -32,3 +64,31 @@
 			</div>
 		</div>
 	</nav>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+
+		// Get all "navbar-burger" elements
+		const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+		// Check if there are any navbar burgers
+		if ($navbarBurgers.length > 0) {
+
+		// Add a click event on each of them
+		$navbarBurgers.forEach( el => {
+			el.addEventListener('click', () => {
+
+			// Get the target from the "data-target" attribute
+			const target = el.dataset.target;
+			const $target = document.getElementById(target);
+
+			// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+			el.classList.toggle('is-active');
+			$target.classList.toggle('is-active');
+
+			});
+		});
+		}
+
+		});
+	</script>

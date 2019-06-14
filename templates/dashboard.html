@@ -7,70 +7,42 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 	<link rel="stylesheet" href="./css/index.css">
+	<script src="https://kit.fontawesome.com/76c8a2d7fd.js"></script>
 </head>
 
 <body>
 
 	{% include 'navbar.html' %}
 
-	<div class="container journal">
-
-		<section class="hero">
-			<div class="hero-body">
-				<div class="container">
-					<h1 class="title">
-						Absence journal
-					</h1>
-					<h2 class="subtitle">
-						Last Absences
-					</h2>
-				</div>
+	<section class="hero is-dark">
+		<div class="hero-body">
+			<div class="container">
+				<h1 class="title">
+					Absence journal
+				</h1>
+				<h2 class="subtitle">
+					Last Absences
+				</h2>
 			</div>
-		</section>
-
+		</div>
+	</section>
+	<div class="container journal">
 		<table id="absenceTable">
 			<thead>
 				<tr>
-					<th><abbr title="Date">Date</abbr></th>
-					<th>Module</th>
-					<th><abbr title="UE">N° UE</abbr></th>
-					<th><abbr title="Won">Student name</abbr></th>
+					<th style="text-align: center"><abbr title="Date">Date</abbr></th>
+					<th style="text-align: center"><abbr title="Modele">Module</abbr></th>
+					<th style="text-align: center"><abbr title="UE">N° UE</abbr></th>
+					<th style="text-align: center"><abbr title="Type">Type</abbr></th>
+					<th style="text-align: center"><abbr title="Delayed">Delayed</abbr></th>
+					<th style="text-align: center"><abbr title="Delayed">Evaluated</abbr></th>
+					<th style="text-align: center"><abbr title="TeacherName">Teacher name</abbr></th>
+					<th style="text-align: center"><abbr title="StudentName">Student name</abbr></th>
+					<th style="text-align: center"><abbr title="Validated">Validated</abbr></th>
+					<th style="text-align: center"><abbr title="Actions">Actions</abbr></th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<th><abbr title="Date">Date</abbr></th>
-					<th>Module</th>
-					<th><abbr title="UE">N° UE</abbr></th>
-					<th><abbr title="Won">Student name</abbr></th>
-				</tr>
-			</tfoot>
-			<tbody>
-				<tr>
-					<th>12/06/2019</th>
-					<td>M2101</td>
-					<td>UE 1</td>
-					<td>Julien Monteil</td>
-				</tr>
-				<tr>
-					<th>12/06/2019</th>
-					<td>M2101</td>
-					<td>UE 1</td>
-					<td>Julien Monteil</td>
-				</tr>
-				<tr>
-					<th>12/06/2019</th>
-					<td>M2101</td>
-					<td>UE 1</td>
-					<td>Julien Monteil</td>
-				</tr>
-				<tr>
-					<th>12/06/2019</th>
-					<td>M2101</td>
-					<td>UE 1</td>
-					<td>Julien Monteil</td>
-				</tr>
-			</tbody>
 		</table>
 	</div>
+	
 {% include 'footer.html' %}

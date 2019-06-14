@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
@@ -27,7 +27,7 @@
 				<div class="field column" >
 				  <label class="label">Date : </label>
 				  <div class="control has-icons-left has-icons-right">
-				    <input name="date" id="datepickerDemoDefault" class="input" type="date" value="14/06/2019" autocomplete="off" id="datepicker">
+				    <input name="date" id="datepickerDemoDefault" class="input" type="date" value="2019-06-10" autocomplete="off" id="datepicker">
 				    <span class="icon is-small is-right">
       					<i class="far fa-calendar-alt"></i>
 				    </span>
@@ -58,17 +58,7 @@
 				  <div class="control">
 				    <div class="select module">
 				      <select name="module" id="module">
-                <option value="-1" selected>Module</option>
-				      </select>
-				    </div>
-				  </div>
-				</div>
-				<div class="field column">
-				  <label class="label">UE : </label>
-				  <div class="control">
-				    <div class="select ue">
-				      <select name="ue" id="ue">
-              <option value="-1" selected>UE</option>
+                		<option value="-1" selected>Module</option>
 				      </select>
 				    </div>
 				  </div>
@@ -78,7 +68,20 @@
 				  <div class="control">
 				    <div class="select type">
 				      <select name="classType" id="classType">
-              <option value="-1" selected>Class</option>
+              			<option value="1" selected>TP</option>
+						<option value="2" selected>TD</option>
+						<option value="3" selected>CM</option>
+				      </select>
+				    </div>
+				  </div>
+				</div>	
+				<div class="field column">
+				  <label class="label">Evaluated : </label>
+				  <div class="control">
+				    <div class="select type">
+				      <select name="evaluated" id="classType">
+              			<option value="1" selected>YES</option>
+						<option value="0" selected>NO</option>
 				      </select>
 				    </div>
 				  </div>
@@ -90,15 +93,15 @@
 					<div id="Entries" class="field">
 						<label class="label">Student : </label>
 						<div class="control has-icons-left has-icons-right" id="Entry" style="margin-top:10px;">
-							<input class="input studentName" type="text" placeholder="Student name" id="nameInput" name="student0"><!-- the name is student0 and increments for each student added (student1, student2, etc.)-->
+							<input class="input studentName" type="text" placeholder="Student name" id="nameInput0" name="student0"><!-- the name is student0 and increments for each student added (student1, student2, etc.)-->
 							<span class="icon is-small is-right">
 							<i class="fas fa-search"></i>
 							</span>
 						</div>
 					</div>
 				</div>
-				<div class="column" style="display: flex; flex-direction: column-reverse; max-width: fit-content;">
-					<button id="button" class="button is-dark">
+				<div class="column" style="display: flex; flex-direction: column-reverse; max-width: max-content;">
+					<button id="addInputFieldButton" class="button is-dark">
 						<i class="fas fa-plus"></i>
 					</button>
 				</div>
@@ -116,24 +119,24 @@
 			  Mark as a delay
 			</label>
 		</br>
+		{% if session.role > 2 %}
 			<label class="checkbox">
 			  <input type="checkbox" name="justify">
 			  Absence or delay justified
 			</label>
+		{% endif %}
 			<div class="columns buttons-form">
 	            <div class="column "> 
 	                <div class="field">
 	                    <div class="control is-expanded">
-	                        <button class="button is-dark is-rounded is-fullwidth is-outlined submit" type="submit">Submit</button>
+	                        <button class="button is-dark is-rounded is-fullwidth is-outlined submit" type="submit" id="submitForm">Submit</button>
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="column"> 
 	                <div class="field">
 	                    <div class="control is-expanded">
-							<a href="./interface.php"><!-- Send back to the homepage juste change the name of the file you are currently using -->
-								<button class="button is-danger is-rounded is-fullwidth is-outlined cancel" type="submit">Cancel</button>
-							</a>
+								<button class="button is-danger is-rounded is-fullwidth is-outlined cancel" id="cancelButton">Cancel</button>
 	                    </div>
 	                </div>
 	            </div>
@@ -143,3 +146,21 @@
 	</section>
 
    {% include 'footer.html'%}
+
+
+   <script>
+		// date of day in addAbsence
+		let now=new Date();
+		let day=now.getDate();
+		let month=now.getMonth()+1;
+		let year=now.getFullYear();
+		if(month < 10){
+			month = "0"+month;
+		}
+		let date = year+"-"+month+"-"+day;
+
+		document.getElementById("datepickerDemoDefault").value = date;
+
+	</script>
+
+
