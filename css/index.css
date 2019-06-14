@@ -37,6 +37,14 @@ td{
 	text-align: center !important;
 }
 
+footer{
+	background-color: #363636 !important;
+	color: #FFF;
+	margin-top: 50px;
+	padding-left: 100px;
+	padding-right: 100px
+}
+
 .account-sign-in{
 	width: 500px;
 }
@@ -50,6 +58,10 @@ td{
 }
 .buttons-form{
 	padding-top: 50px;
+}
+.navbar-item{
+	border-left: solid 1px #363636;
+	padding-top: 3px;
 }
 
 

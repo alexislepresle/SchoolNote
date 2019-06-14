@@ -99,6 +99,7 @@ $(function () {
 
     $("#absenceTable").DataTable({
         "ajax": '_api.php/dashboard',
+        "order": [[0, "desc"]],
         "columnDefs": [
             {
                 "targets": 7,
@@ -108,9 +109,9 @@ $(function () {
                         style = "times"
                     else
                         style = "check";
-                    return "<i class='fas fa-" + style + " data-order=' " + data + " '></i>";
+                    return "<i class='fas fa-" + style + " title='" + data + " '></i>";
                 },
-                "sType": "customNumber",
+                "sType": "title-string",
             },
             {
                 "targets": 8,
@@ -124,8 +125,9 @@ $(function () {
                         style = "times"
                     else
                         style = "check";
-                    return "<i class='fas fa-" + style + " data-order=' " + data + " '></i>";
-                }
+                    return "<i class='fas fa-" + style + " title='" + data + " '></i>";
+                },
+                "sType": "title-string",
             }
         ]
     });
