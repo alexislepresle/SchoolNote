@@ -41,7 +41,6 @@ $(function () {
         scrollbar: true
     });
 
-
     $("#form-signin").submit(function (event) {
         event.preventDefault();
         $.post("_api.php/login", JSON.stringify(getFormData($(this))))
@@ -55,24 +54,28 @@ $(function () {
             });
     });
 
-
     $("#addAbsence").submit(function (event) {
         event.preventDefault();
-        // $.post("_api.php/login", JSON.stringify($(this).serializeArray()))
-        //     .done(function (data) {
-        //         console.log(data);
-        //     });
+    });
+
+    $("#submitForm").click(function (event) {
+        event.preventDefault();
         var isComplete = true;
-        $.each($(this).serializeArray(), function (index, valueObject) {
+        $.each($("#addAbsence").serializeArray(), function (index, valueObject) {
             var value = valueObject['value'];
             if (value == null || value == "") {
                 isComplete = false;
             }
         });
         if (isComplete) {
-            $.post("_api.php/addabsence", JSON.stringify(getFormData($(this))))
+            $.post("_api.php/addabsence", JSON.stringify(getFormData($("#addAbsence"))))
                 .done(function (data) {
                     console.log(data);
+                    if (data['code'] == 1) {
+                        $(location).attr('href', "/");
+                    } else {
+                        alert("Something went wrong please try again");
+                    }
                 });
 
         } else {
@@ -86,12 +89,44 @@ $(function () {
         "ajax": '_api.php/dashboard',
     });
 
+    $('#nameInput' + inputCount).autocomplete({
+        source: function (request, response) {
+            $.post("_api.php/autoname", JSON.stringify({ "data": request.term })
+                , function (data) {
+                    var suggestions = [];
+                    $.each(data, function (index, value) {
+                        suggestions.push(value['name']);
+                    });
+                    response(suggestions);
+                });
+        },
+        minLength: 4
+    });
 
-    $("#button").click(function () {
+    $("#cancelButton").click(function (event) {
+        event.preventDefault();
+        $(location).attr('href', "/");
+    });
+
+    $("#addInputFieldButton").click(function () {
         inputCount++;
         if (inputCount < 10) {
-            $("<div class='control has-icons-left has-icons-right' id='Entry' style='margin-top:10px;'><input class='input studentName' type='text' placeholder='Student name' id='nameInput' name=student" + inputCount + "><span class='icon is-small is-right'><i class='fas fa-search'></i></span></div > ").appendTo($("#Entries"))
+            $("<div class='control has-icons-left has-icons-right' id='Entry' style='margin-top:10px;'><input class='input studentName' type='text' placeholder='Student name' id='nameInput" + inputCount + "' name=student" + inputCount + "><span class='icon is-small is-right'><i class='fas fa-search'></i></span></div > ").appendTo($("#Entries"))
         }
+        var id = '#nameInput' + inputCount;
+        $(id).autocomplete({
+            source: function (request, response) {
+                $.post("_api.php/autoname", JSON.stringify({ "data": request.term })
+                    , function (data) {
+                        var suggestions = [];
+                        $.each(data, function (index, value) {
+                            suggestions.push(value['name']);
+                        });
+                        response(suggestions);
+                    });
+            },
+            minLength: 4
+        });
     });
 
     $("#addAbsence").ready(function () {
@@ -104,17 +139,9 @@ $(function () {
                     });
                     $('#module').append(option);
                 });
-                $.each(["eins", "zwei"], function (value) {
-                    var option = $("<option/>", {
-                        value: value,
-                        text: value
-                    });
-                    $("#class").append(option);
-                });
             });
         $("#module").on('change', function () {
             $.post("_api.php/getue", JSON.stringify({ "data": $(this).val() })).done(function (data) {
-                console.log(data);
                 $.each(data, function (index, value) {
                     var option = $("<option/>", {
                         value: value[0],
@@ -124,24 +151,5 @@ $(function () {
                 });
             });
         });
-
-        $("#nameInput").autocomplete({
-            source: function (request, response) {
-                $.post("_api.php/autoname", JSON.stringify({ "data": request.term })
-                    , function (data) {
-                        console.log(data);
-                        var suggestions = [];
-                        $.each(data, function (index, value) {
-                            suggestions.push(value['name']);
-                        });
-                        console.log(suggestions);
-                        response(suggestions);
-                    });
-            },
-            minLength: 4
-        });
-
-
-
     });
 });

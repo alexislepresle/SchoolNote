@@ -22,6 +22,7 @@
 
     // Define new app
     $app = new \Slim\App;
+	#$app->config('debug', true);
 
     // Fetch DI Container
     $container = $app->getContainer();
@@ -57,7 +58,9 @@
 
     $app->get('/', function (Request $request, Response $response, array $args) {
         is_loggedin();
-        return $this->view->render($response, 'dashboard.html');
+        return $this->view->render($response, 'dashboard.html', [
+			'session' => $_SESSION
+		]);
     });
 
     $app->get('/login', function (Request $request, Response $response, array $args) {
@@ -72,7 +75,9 @@
 	
 	$app->get('/addAbsence', function (Request $request, Response $response, array $args) {
         is_loggedin();
-        return $this->view->render($response, 'addAbsence.html');
+        return $this->view->render($response, 'addAbsence.html', [
+			'session' => $_SESSION
+		]);
     });
 
     $app->get('/logout', function (Request $request, Response $response, array $args) {

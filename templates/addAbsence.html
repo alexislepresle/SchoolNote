@@ -58,19 +58,14 @@
 				  <div class="control">
 				    <div class="select module">
 				      <select name="module" id="module">
-                <option value="-1" selected>Module</option>
+                		<option value="-1" selected>Module</option>
 				      </select>
 				    </div>
 				  </div>
 				</div>
 				<div class="field column">
-				  <label class="label">UE : </label>
 				  <div class="control">
-				    <div class="select ue">
-				      <select name="ue" id="ue">
-              <option value="-1" selected>UE</option>
-				      </select>
-				    </div>
+						<input id="ue" type="hidden" value="-1"></input>
 				  </div>
 				</div>		
 				<div class="field column">
@@ -78,7 +73,20 @@
 				  <div class="control">
 				    <div class="select type">
 				      <select name="classType" id="classType">
-              <option value="-1" selected>Class</option>
+              			<option value="1" selected>TP</option>
+						<option value="2" selected>TD</option>
+						<option value="3" selected>CM</option>
+				      </select>
+				    </div>
+				  </div>
+				</div>	
+				<div class="field column">
+				  <label class="label">Evaluated : </label>
+				  <div class="control">
+				    <div class="select type">
+				      <select name="evaluated" id="classType">
+              			<option value="1" selected>YES</option>
+						<option value="0" selected>NO</option>
 				      </select>
 				    </div>
 				  </div>
@@ -90,7 +98,7 @@
 					<div id="Entries" class="field">
 						<label class="label">Student : </label>
 						<div class="control has-icons-left has-icons-right" id="Entry" style="margin-top:10px;">
-							<input class="input studentName" type="text" placeholder="Student name" id="nameInput" name="student0"><!-- the name is student0 and increments for each student added (student1, student2, etc.)-->
+							<input class="input studentName" type="text" placeholder="Student name" id="nameInput0" name="student0"><!-- the name is student0 and increments for each student added (student1, student2, etc.)-->
 							<span class="icon is-small is-right">
 							<i class="fas fa-search"></i>
 							</span>
@@ -98,7 +106,7 @@
 					</div>
 				</div>
 				<div class="column" style="display: flex; flex-direction: column-reverse; max-width: fit-content;">
-					<button id="button" class="button is-dark">
+					<button id="addInputFieldButton" class="button is-dark">
 						<i class="fas fa-plus"></i>
 					</button>
 				</div>
@@ -116,24 +124,24 @@
 			  Mark as a delay
 			</label>
 		</br>
+		{% if session.role > 2 %}
 			<label class="checkbox">
 			  <input type="checkbox" name="justify">
 			  Absence or delay justified
 			</label>
+		{% endif %}
 			<div class="columns buttons-form">
 	            <div class="column "> 
 	                <div class="field">
 	                    <div class="control is-expanded">
-	                        <button class="button is-dark is-rounded is-fullwidth is-outlined submit" type="submit">Submit</button>
+	                        <button class="button is-dark is-rounded is-fullwidth is-outlined submit" type="submit" id="submitForm">Submit</button>
 	                    </div>
 	                </div>
 	            </div>
 	            <div class="column"> 
 	                <div class="field">
 	                    <div class="control is-expanded">
-							<a href="./interface.php"><!-- Send back to the homepage juste change the name of the file you are currently using -->
-								<button class="button is-danger is-rounded is-fullwidth is-outlined cancel" type="submit">Cancel</button>
-							</a>
+								<button class="button is-danger is-rounded is-fullwidth is-outlined cancel" id="cancelButton">Cancel</button>
 	                    </div>
 	                </div>
 	            </div>
