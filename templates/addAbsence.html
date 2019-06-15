@@ -22,6 +22,7 @@
 	</section>
 	<section class="section formulaire">
 
+<<<<<<< HEAD
 	    <form class="formAdd" name="addAbsence" accept-charset="UTF-8" id="addAbsence">
 	    	<div class="columns">
 				<div class="field column" >
@@ -162,5 +163,91 @@
 		document.getElementById("datepickerDemoDefault").value = date;
 
 	</script>
+=======
+        <form class="formAdd" name="contact" id="addAbsence">
+          <div class="columns">
+          <div class="field column" >
+            <label class="label">Date : </label>
+            <div class="control has-icons-left has-icons-right">
+              <input id="datepickerDemoDefault" class="input" type="date" autocomplete="off" id="datepicker" name="date">
+              <span class="icon is-small is-right">
+                  <i class="far fa-calendar-alt"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field column" >
+            <label class="label">Beginning : </label>
+            <div class="control has-icons-left has-icons-right">
+              <input type="text" autocomplete="off" id="timepicker" class="input hoursBegin" type="time" name="startTime">
+              <span class="icon is-small is-right">
+                    <i class="far fa-clock"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field column" >
+            <label class="label">End : </label>
+            <div class="control has-icons-left has-icons-right">
+              <input type="text" autocomplete="off" id="timepickerend" class="input hoursEnd" type="time" name="endTime">
+              <span class="icon is-small is-right">
+                    <i class="far fa-clock"></i>
+              </span>
+            </div>
+          </div>		
+        </div>	
+        <div class="columns">
+          <div class="field column">
+            <label class="label">Module : </label>
+            <div class="control">
+              <div class="select module">
+                <select name="module">
+                  <option>Select dropdown</option>
+                  <option>With options</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field column">
+            <label class="label">UE : </label>
+            <div class="control">
+              <div class="select ue">
+                <select name="ue">
+                  <option>Select dropdown</option>
+                  <option>With options</option>
+                </select>
+              </div>
+            </div>
+          </div>		
+          <div class="field column">
+            <label class="label">Type of class : </label>
+            <div class="control">
+              <div class="select type">
+                <select name="class">
+                  <option>Select dropdown</option>
+                  <option>With options</option>
+                </select>
+              </div>
+            </div>
+          </div>	
+        </div>	
+        <div class="columns ">
+          <div class="column">
+            <div id="Entries" class="field">
+              <label class="label">Student : </label>
+              <div class="control has-icons-left has-icons-right" id="Entry" style="margin-top:10px;">
+                <input class="input studentName" type="text" placeholder="Student name">
+                <span class="icon is-small is-right">
+                <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="column" style="display: flex; flex-direction: column-reverse; max-width: fit-content;">
+            <button id="button" class="button is-dark">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+  
+        </div>
+>>>>>>> e02eebb023b5764f222c5254aa9c49f6061d6d08
 
 

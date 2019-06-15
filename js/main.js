@@ -72,39 +72,39 @@ $(function () {
             $.post("_api.php/addabsence", JSON.stringify(getFormData($("#addAbsence"))))
                 .done(function (data) {
                     console.log(data);
-                    if (data['code'] == 1) {
-                        $(location).attr('href', "/");
-                    } else {
-                        alert("Something went wrong please try again");
-                    }
-                });
-
-        } else {
-            alert("Please fill all the Inputs");
-            return;
-        }
-
-    });
+                      if (data['code'] == 1) {
+                        $(location).attr('href', "/" ); 
+                       } else {
+                           alert("Something went wrong please try again");
+                       }
+                   });
+    
+            }  e ls e   {  
+                    alert("Please fill all the Inputs");
+                  re t urn;
+                }
+    
+       });
 
     $("#absenceTable").on("click", ".submitDelete", function () {
-        if (!confirm("Delete?")) {
-            return;
+    if (!confirm("Delete?")) {
+        return;
+            
+                .php/delabsence", JSON.stringify({ "id": $(this).data("id") })).done(
+                    ta) {
+                    ax.reload(null, false);
+                
+                
+            
+        
+    absenceTable").on("click", ".submitValidate", function () {
+        !confirm("Validate?")) {
+            rn;
+                
+            _api.php/valabsence", JSON.stringify({ "id": $(this).data("id") })).done(
+        function (data) {
+            table.ajax.reload(null, false);
         }
-        $.post("_api.php/delabsence", JSON.stringify({ "id": $(this).data("id") })).done(
-            function (data) {
-                table.ajax.reload(null, false);
-            }
-        );
-    });
-
-    $("#absenceTable").on("click", ".submitValidate", function () {
-        if (!confirm("Validate?")) {
-            return;
-        }
-        $.post("_api.php/valabsence", JSON.stringify({ "id": $(this).data("id") })).done(
-            function (data) {
-                table.ajax.reload(null, false);
-            }
         );
     });
 
