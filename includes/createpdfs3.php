@@ -53,5 +53,5 @@ foreach($resultat as $value){
 	$pdf->Ln();
 	$pdf->Ln();
 	$pdf->MultiCell(150,5,'Created on '.$value['CURRENT_DATE'],1);
-	pdf->Output("Unjustified_AbsencesS3.pdf",'I');
+	$pdf->Output("Unjustified_AbsencesS3.pdf",'I');
 ?>
